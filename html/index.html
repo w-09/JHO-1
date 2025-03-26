@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome Page</title>
+  <title>結合頁面</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
   <style>
       body {
@@ -199,6 +199,52 @@
       .fullscreen-btn:hover {
           background-color: #218838;
       }
+
+      .floating-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #007BFF;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+          cursor: pointer;
+          transition: background-color 0.3s;
+      }
+
+      .floating-button:hover {
+          background-color: #0056b3;
+      }
+
+      .menu {
+          display: none;
+          position: fixed;
+          bottom: 90px;
+          right: 20px;
+          background-color: rgba(255, 255, 255, 0.9);
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+          z-index: 1000;
+      }
+
+      .menu-item {
+          padding: 10px 15px;
+          color: #333;
+          text-decoration: none;
+          display: block;
+          transition: background-color 0.3s;
+      }
+
+      .menu-item:hover {
+          background-color: #f0f0f0;
+      }
   </style>
 </head>
 <body>
@@ -208,8 +254,8 @@
   <p class="countdown-text">工期倒數計時：</p>
   <div id="countdown"></div>
 
-   <!-- 按鈕列表 -->
-   <div class="btn-container">
+  <!-- 按鈕列表 -->
+  <div class="btn-container">
       <div class="btn-group">
           <p style="color: #ffffff; font-size: 18px; margin-bottom: 10px;">施工組</p>
           <a href="https://docs.google.com/spreadsheets/d/1_jZbDPtyy7cO3cA0VwdrQGD6sbkIz0tzjLnnktIbVFw/edit?gid=0#gid=0" class="btn">機關日報</a>
@@ -225,7 +271,7 @@
       <div class="btn-group">
           <p style="color: #ffffff; font-size: 18px; margin-bottom: 10px;">品管組</p>
           <a href="https://docs.google.com/spreadsheets/d/13dLwyMfSB_O8V2oHDqnUeV__RnNFalBGPllYWnyXaPw/edit?gid=0#gid=0" class="btn">混凝土澆置時間紀錄(1)</a>
-           <a href="https://docs.google.com/spreadsheets/d/120XZPrVJ45FkId1PKj4Weov0lcDOhBsThOSnPlg3A3A/edit?usp=sharing" class="btn">混凝土澆置時間紀錄(2)</a>
+          <a href="https://docs.google.com/spreadsheets/d/120XZPrVJ45FkId1PKj4Weov0lcDOhBsThOSnPlg3A3A/edit?usp=sharing" class="btn">混凝土澆置時間紀錄(2)</a>
           <a href="https://docs.google.com/spreadsheets/d/1ymHlbXo8yzJ8XCd9djMdBSwjwIqwsGdUfdDd4OE8nio/edit?gid=281744822#gid=281744822" class="btn">收/發文紀錄</a>
           <a href="https://docs.google.com/spreadsheets/d/13Zf7l9bKjapzaQGxyRAc-qeVmdWNmFhGxPd2ziPnEJw/edit?gid=0#gid=0" class="btn">工程相關人員督導紀錄</a>
           <a href="https://docs.google.com/spreadsheets/d/1i1TBepz7SEm0KRRCbRYntfTcCA7ZKUgRRwDaWJ1nMqU/edit?gid=1342178985#gid=1342178985" class="btn">矯正預防/永青自主缺失統計</a>
@@ -241,33 +287,7 @@
           <a href="" class="btn">尚未啟用</a>
       </div>
   </div>
-  <script>
-      function updateCountdown() {
-          const targetDate = new Date('2027-01-27T00:00:00Z');
-          const now = new Date();
-          const timeDiff = targetDate - now;
 
-          if (timeDiff <= 0) {
-              document.getElementById('countdown').innerHTML = '倒計時結束';
-              return;
-          }
-
-          const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-          document.getElementById('countdown').innerHTML =
-              days + '天 ' +
-              hours + '小時 ' +
-              minutes + '分鐘 ' +
-              seconds + '秒 ';
-      }
-
-      setInterval(updateCountdown, 1000);
-      updateCountdown();
-  </script>
-  
   <h1>施工(材料)自主檢查統計圖表</h1>
 
   <div class="chart-container">
@@ -287,23 +307,15 @@
       </div>
   </div>
 
-  <script>
-      function toggleFullscreen(chartType) {
-          const chart = document.querySelector(`iframe[src*="${chartType === 'materialChart' ? 'oid=53990740' : 'oid=7002305'}"]`);
-          
-          if (document.fullscreenElement) {
-              document.exitFullscreen();
-          } else if (chart.requestFullscreen) {
-              chart.requestFullscreen();
-          } else if (chart.mozRequestFullScreen) { // Firefox
-              chart.mozRequestFullScreen();
-          } else if (chart.webkitRequestFullscreen) { // Chrome, Safari, Opera
-              chart.webkitRequestFullscreen();
-          } else if (chart.msRequestFullscreen) { // IE / Edge
-              chart.msRequestFullscreen();
-          }
-      }
-  </script>
+  <button class="floating-button" onclick="toggleMenu()">+</button>
+  <div class="menu" id="menu">
+      <a href="#" class="menu-item">公告</a>
+      <a href="#" class="menu-item">聯絡我們</a>
+      <a href="#" class="menu-item">幫助</a>
+  </div>
 
-</body>
-</html>
+  <script>
+      function updateCountdown() {
+          const targetDate = new Date('2027-01-27T00:00:00Z');
+          const now = new Date();
+          const timeDiff =
