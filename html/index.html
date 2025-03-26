@@ -6,48 +6,7 @@
   <title>jho 亞灣工務所</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
   <style>
-    /* 新增浮標的 CSS */
-      .floating-button {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          width: 60px;
-          height: 60px;
-          background-color: #3e9956;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-          z-index: 1000;
-          transition: all 0.3s;
-          animation: float 2s ease-in-out infinite;
-      }
-
-      .floating-button img {
-          width: 35px;
-          height: 35px;
-      }
-
-      @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-      }
-
-      .floating-button:hover {
-          transform: scale(1.1);
-          box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-      }
-  </style>
-</head>
-<body>
-  <!-- 新增浮標按鈕 -->
-  <a href="https://w-09.github.io/jho/index.html" class="floating-button" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="JHO網站">
-  </a>
-  
-      body {
+   body {
           background-image: url('https://i.postimg.cc/r0ZFRVz3/58c39104.jpg');
           background-size: 10%; /* 背景圖片覆蓋整個頁面 */
           background-position: center; /* 背景圖片置中 */
@@ -240,9 +199,48 @@
       .fullscreen-btn:hover {
           background-color: #218838;
       }
+/* 新增浮標的 CSS */
+      .floating-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 60px;
+          height: 60px;
+          background-color: #3e9956;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          z-index: 1000;
+          transition: all 0.3s;
+          animation: float 2s ease-in-out infinite;
+      }
+
+      .floating-button img {
+          width: 35px;
+          height: 35px;
+      }
+
+      @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+      }
+
+      .floating-button:hover {
+          transform: scale(1.1);
+          box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+      }
+    
   </style>
 </head>
 <body>
+   <!-- 新增浮標按鈕 -->
+  <a href="https://w-09.github.io/jho/index.html" class="floating-button" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="JHO網站">
+  </a>
+
   <img src="https://i.postimg.cc/ZKWfsQD9/Logo-02-0.png" alt="Logo" class="center-image">
   <h1>歡迎光臨，亞灣工務所</h1>
 
