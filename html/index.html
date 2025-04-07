@@ -259,207 +259,6 @@
             margin-bottom: 4px;
         }
         
-        /* 浮動按鈕樣式 */
-        .floating-btn {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            z-index: 99;
-        }
-
-        .floating-btn button {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .floating-btn button:hover {
-            background-color: #1557b0;
-            transform: scale(1.05);
-        }
-
-        .floating-btn .material-icons {
-            font-size: 24px;
-        }
-
-        /* 彈出視窗樣式 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 1001;
-            overflow: auto;
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            width: 90%;
-            max-width: 900px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: modalFadeIn 0.3s;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        @keyframes modalFadeIn {
-            from {opacity: 0; transform: translateY(-20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: #1a73e8;
-        }
-
-        .close-modal {
-            font-size: 28px;
-            font-weight: bold;
-            color: #666;
-            cursor: pointer;
-        }
-
-        .close-modal:hover {
-            color: #1a73e8;
-        }
-
-        /* 標籤頁樣式 */
-        .modal-tabs {
-            display: flex;
-            border-bottom: 1px solid #e0e0e0;
-            background-color: #f5f5f5;
-        }
-
-        .tab-btn {
-            padding: 12px 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            color: #666;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab-btn.active {
-            color: #1a73e8;
-            border-bottom: 3px solid #1a73e8;
-            background-color: white;
-        }
-
-        .tab-btn:hover:not(.active) {
-            background-color: #e0e0e0;
-        }
-
-        .modal-body {
-            padding: 0;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .tab-content {
-            display: none;
-            height: 100%;
-        }
-
-        .tab-content.active {
-            display: block;
-            height: 100%;
-        }
-
-        /* iframe 容器樣式 */
-        .iframe-container {
-            position: relative;
-            height: 60vh;
-            width: 100%;
-        }
-
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .fullscreen-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(255,255,255,0.8);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-
-        .fullscreen-btn:hover {
-            background-color: white;
-            transform: scale(1.1);
-        }
-
-        /* 全螢幕模式 */
-        .fullscreen-mode {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1002;
-            background-color: white;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .fullscreen-mode iframe {
-            width: 100%;
-            height: calc(100% - 50px);
-        }
-
-        .fullscreen-mode .exit-fullscreen {
-            display: block;
-            margin-bottom: 10px;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .fullscreen-mode .exit-fullscreen:hover {
-            background-color: #1557b0;
-        }
-        
         /* 針對小螢幕裝置的響應式調整 */
         @media (max-width: 768px) {
             .btn-container {
@@ -486,20 +285,6 @@
             
             .header h1 {
                 font-size: 18px;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-            }
-            
-            .tab-btn {
-                padding: 10px 15px;
-                font-size: 14px;
-            }
-            
-            .iframe-container {
-                height: 50vh;
             }
         }
     </style>
@@ -589,45 +374,6 @@
         </section>
     </div>
     
-    <!-- 浮動按鈕 -->
-    <div class="floating-btn">
-        <button id="statsButton">
-            <i class="material-icons">bar_chart</i>
-        </button>
-    </div>
-
-    <!-- 統計表彈出視窗 -->
-    <div id="statsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>統計表</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="modal-tabs">
-                <button class="tab-btn active" data-tab="construction">施工統計表</button>
-                <button class="tab-btn" data-tab="material">材料統計表</button>
-            </div>
-            <div class="modal-body">
-                <div id="construction" class="tab-content active">
-                    <div class="iframe-container">
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQDM8CixCezA76NPFE5oejTPTgoBrQMW3ySWxZNTYTVSJQD_LPR4aP61h8YHshqVMazDPVp4BAFnz2u/pubchart?oid=53990740&format=interactive" frameborder="0"></iframe>
-                        <button class="fullscreen-btn" data-iframe="construction">
-                            <i class="material-icons">fullscreen</i>
-                        </button>
-                    </div>
-                </div>
-                <div id="material" class="tab-content">
-                    <div class="iframe-container">
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiqFj7dalIGRMp6k7lLPpQdZxsq3FZ4YDQpCjWgYpALThZtVoQlkm5CX3nAODOx-TklA7AP4WAfWHK/pubchart?oid=7002305&format=interactive" frameborder="0"></iframe>
-                        <button class="fullscreen-btn" data-iframe="material">
-                            <i class="material-icons">fullscreen</i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <nav class="bottom-nav">
         <a href="#" class="nav-item active">
             <i class="material-icons">home</i>
@@ -687,39 +433,136 @@
         setInterval(updateCountdown, 1000);
         
         // 頁面載入時直接獲取公告
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchBulletinEntries();
-            
-            // 浮動按鈕和彈出視窗功能
-            // 獲取元素
-            const statsButton = document.getElementById('statsButton');
-            const statsModal = document.getElementById('statsModal');
-            const closeModal = document.querySelector('.close-modal');
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            const fullscreenBtns = document.querySelectorAll('.fullscreen-btn');
-            
-            // 打開彈出視窗
-            statsButton.addEventListener('click', function() {
-                statsModal.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // 防止背景滾動
-            });
-            
-            // 關閉彈出視窗
-            closeModal.addEventListener('click', function() {
-                statsModal.style.display = 'none';
-                document.body.style.overflow = ''; // 恢復背景滾動
-            });
-            
-            // 點擊彈出視窗外部關閉
-            window.addEventListener('click', function(event) {
-                if (event.target === statsModal) {
-                    statsModal.style.display = 'none';
-                    document.body.style.overflow = '';
+        document.addEventListener('DOMContentLoaded', fetchBulletinEntries);
+        
+        // 從試算表載入公告資料
+        async function fetchBulletinEntries() {
+            try {
+                console.log("開始載入公告資料...");
+                // 使用 fetch API 獲取 CSV 數據
+                const response = await fetch(SPREADSHEET_CSV_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP 錯誤! 狀態: ${response.status}`);
                 }
-            });
-            
-            // 標籤頁切換功能
-            tabBtns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    // 移除
+                
+                const csvText = await response.text();
+                console.log("成功獲取CSV數據");
+                
+                // 使用 PapaParse 解析 CSV
+                Papa.parse(csvText, {
+                    complete: function(results) {
+                        const entriesContainer = document.getElementById('bulletin-entries');
+                        entriesContainer.innerHTML = ''; // 清空載入提示
+                        
+                        // 跳過標題列，從第二列開始
+                        const entries = results.data.slice(1).filter(entry => entry.length > 0 && entry[0] && entry[0].trim() !== '');
+                        
+                        console.log("過濾後的有效公告數:", entries.length);
+                        
+                        if (entries.length === 0) {
+                            entriesContainer.innerHTML = `
+                                <div style="text-align:center; color:#888;">
+                                    目前尚無公告
+                                </div>
+                            `;
+                            return;
+                        }
+                        
+                        // 只顯示最新的3則公告
+                        const displayEntries = entries.slice(0, 3);
+                        
+                        // 顯示公告
+                        displayEntries.forEach(entry => {
+                            const entryDiv = document.createElement('div');
+                            entryDiv.className = 'bulletin-entry';
+                            
+                            const icon = entry[3] || '📢';
+                            const title = entry[0] || '公告';
+                            const content = entry[1] || '暫無詳細內容';
+                            const date = entry[2] || '';
+                            
+                            entryDiv.innerHTML = `
+                                <div class="entry-title">${icon} ${title}</div>
+                                <div class="entry-content">${content}</div>
+                                <div class="entry-date">${date}</div>
+                            `;
+                            
+                            entriesContainer.appendChild(entryDiv);
+                        });
+                        
+                        // 如果有超過3則公告，顯示「查看更多」按鈕
+                        if (entries.length > 3) {
+                            const viewMoreBtn = document.getElementById('view-more-btn');
+                            viewMoreBtn.style.display = 'block';
+                            
+                            // 點擊「查看更多」按鈕時顯示所有公告
+                            viewMoreBtn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                
+                                // 清空容器
+                                entriesContainer.innerHTML = '';
+                                
+                                // 顯示所有公告
+                                entries.forEach(entry => {
+                                    const entryDiv = document.createElement('div');
+                                    entryDiv.className = 'bulletin-entry';
+                                    
+                                    const icon = entry[3] || '📢';
+                                    const title = entry[0] || '公告';
+                                    const content = entry[1] || '暫無詳細內容';
+                                    const date = entry[2] || '';
+                                    
+                                    entryDiv.innerHTML = `
+                                        <div class="entry-title">${icon} ${title}</div>
+                                        <div class="entry-content">${content}</div>
+                                        <div class="entry-date">${date}</div>
+                                    `;
+                                    
+                                    entriesContainer.appendChild(entryDiv);
+                                });
+                                
+                                // 隱藏「查看更多」按鈕
+                                viewMoreBtn.style.display = 'none';
+                                
+                                // 添加「顯示較少」按鈕
+                                const showLessBtn = document.createElement('a');
+                                showLessBtn.href = '#';
+                                showLessBtn.className = 'view-more-btn';
+                                showLessBtn.textContent = '顯示較少';
+                                showLessBtn.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    fetchBulletinEntries(); // 重新載入，只顯示前3則
+                                });
+                                
+                                entriesContainer.parentNode.appendChild(showLessBtn);
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        console.error('CSV解析錯誤:', error);
+                        const entriesContainer = document.getElementById('bulletin-entries');
+                        entriesContainer.innerHTML = `
+                            <div class="error-message">
+                                <h3>🚨 CSV解析錯誤</h3>
+                                <p>${error.message}</p>
+                                <p>請稍後再試或聯絡系統管理員</p>
+                            </div>
+                        `;
+                    }
+                });
+            } catch (error) {
+                console.error('公告載入失敗:', error);
+                const entriesContainer = document.getElementById('bulletin-entries');
+                entriesContainer.innerHTML = `
+                    <div class="error-message">
+                        <h3>🚨 載入錯誤</h3>
+                        <p>${error.message}</p>
+                        <p>請檢查網路連接或聯絡系統管理員</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
