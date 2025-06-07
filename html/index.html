@@ -217,90 +217,6 @@
             background-color: #1557b0;
         }
         
-        /* 備忘錄樣式 */
-        .memo-container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .memo-textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-            resize: vertical;
-            transition: border-color 0.3s;
-        }
-        
-        .memo-textarea:focus {
-            outline: none;
-            border-color: #1a73e8;
-            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
-        }
-        
-        .memo-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            font-size: 12px;
-            color: #666;
-        }
-        
-        .memo-save-status {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .memo-save-status.saved {
-            color: #4caf50;
-        }
-        
-        .memo-save-status.saving {
-            color: #ff9800;
-        }
-        
-        .memo-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .memo-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background-color 0.3s;
-        }
-        
-        .memo-btn.clear {
-            background-color: #f44336;
-            color: white;
-        }
-        
-        .memo-btn.clear:hover {
-            background-color: #d32f2f;
-        }
-        
-        .memo-btn.export {
-            background-color: #4caf50;
-            color: white;
-        }
-        
-        .memo-btn.export:hover {
-            background-color: #388e3c;
-        }
-        
         /* 錯誤訊息樣式 */
         .error-message {
             background-color: #ffebee;
@@ -369,16 +285,6 @@
             
             .header h1 {
                 font-size: 18px;
-            }
-            
-            .memo-controls {
-                flex-direction: column;
-            }
-            
-            .memo-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 5px;
             }
         }
     </style>
@@ -467,39 +373,6 @@
                 </div>
             </div>
         </section>
-        
-        <!-- 備忘錄功能 -->
-        <section id="memo">
-            <h2><i class="material-icons">note</i> 個人備忘錄</h2>
-            <div class="memo-container">
-                <textarea 
-                    id="memo-textarea" 
-                    class="memo-textarea" 
-                    placeholder="在這裡輸入您的備忘錄內容...&#10;&#10;• 內容會自動保存到瀏覽器本地儲存&#10;• 支援多行文字輸入&#10;• 可以記錄工作事項、重要提醒等"
-                ></textarea>
-                
-                <div class="memo-info">
-                    <div class="memo-save-status" id="memo-save-status">
-                        <i class="material-icons">check_circle</i>
-                        <span>已自動保存</span>
-                    </div>
-                    <div class="memo-char-count">
-                        字數: <span id="char-count">0</span>
-                    </div>
-                </div>
-                
-                <div class="memo-controls">
-                    <button class="memo-btn clear" id="clear-memo">
-                        <i class="material-icons" style="font-size: 14px; vertical-align: middle;">delete</i>
-                        清空內容
-                    </button>
-                    <button class="memo-btn export" id="export-memo">
-                        <i class="material-icons" style="font-size: 14px; vertical-align: middle;">download</i>
-                        匯出備忘錄
-                    </button>
-                </div>
-            </div>
-        </section>
     </div>
     
     <nav class="bottom-nav">
@@ -511,9 +384,9 @@
             <i class="material-icons">campaign</i>
             <span>公告</span>
         </a>
-        <a href="#memo" class="nav-item">
-            <i class="material-icons">note</i>
-            <span>備忘錄</span>
+        <a href="#" class="nav-item">
+            <i class="material-icons">description</i>
+            <span>文件(尚未開發)</span>
         </a>
         <a href="#" class="nav-item">
             <i class="material-icons">person</i>
@@ -561,10 +434,7 @@
         setInterval(updateCountdown, 1000);
         
         // 頁面載入時直接獲取公告
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchBulletinEntries();
-            initMemo();
-        });
+        document.addEventListener('DOMContentLoaded', fetchBulletinEntries);
         
         // 從試算表載入公告資料
         async function fetchBulletinEntries() {
@@ -666,4 +536,34 @@
                                     fetchBulletinEntries(); // 重新載入，只顯示前3則
                                 });
                                 
-                                entriesContainer.parentNode.appendChild(showL
+                                entriesContainer.parentNode.appendChild(showLessBtn);
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        console.error('CSV解析錯誤:', error);
+                        const entriesContainer = document.getElementById('bulletin-entries');
+                        entriesContainer.innerHTML = `
+                            <div class="error-message">
+                                <h3>🚨 CSV解析錯誤</h3>
+                                <p>${error.message}</p>
+                                <p>請稍後再試或聯絡系統管理員</p>
+                            </div>
+                        `;
+                    }
+                });
+            } catch (error) {
+                console.error('公告載入失敗:', error);
+                const entriesContainer = document.getElementById('bulletin-entries');
+                entriesContainer.innerHTML = `
+                    <div class="error-message">
+                        <h3>🚨 載入錯誤</h3>
+                        <p>${error.message}</p>
+                        <p>請檢查網路連接或聯絡系統管理員</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
