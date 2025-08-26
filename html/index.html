@@ -1,571 +1,626 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>南一處-亞灣工務所</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            padding-top: 60px;
-            padding-bottom: 70px;
-        }
-        
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background-color: #1a73e8;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 800px;
-        }
-        
-        .header-logo {
-            height: 40px;
-            margin-right: 10px;
-        }
-        
-        .header h1 {
-            font-size: 20px;
-            font-weight: 500;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #1a73e8;
-            display: flex;
-            align-items: center;
-        }
-        
-        h2 .material-icons {
-            margin-right: 5px;
-            font-size: 20px;
-        }
-        
-        /* 公告欄樣式 */
-        .bulletin-entry {
-            background-color: #f9f9f9;
-            border-left: 5px solid #3e9956;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>南一處-亞灣工務所</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Noto Sans TC', sans-serif;
+      }
+      
+      body {
+          background-color: #f5f5f5;
+          color: #333;
+          padding-top: 60px;
+          padding-bottom: 70px;
+      }
+      
+      .header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 60px;
+          background-color: #1a73e8;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .header-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          max-width: 800px;
+      }
+      
+      .header-logo {
+          height: 40px;
+          margin-right: 10px;
+      }
+      
+      .header h1 {
+          font-size: 20px;
+          font-weight: 500;
+      }
+      
+      .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 15px;
+      }
+      
+      .card {
+          background-color: white;
+          border-radius: 8px;
+          padding: 15px;
+          margin-bottom: 15px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      h2 {
+          font-size: 18px;
+          margin-bottom: 15px;
+          color: #1a73e8;
+          display: flex;
+          align-items: center;
+      }
+      
+      h2 .material-icons {
+          margin-right: 5px;
+          font-size: 20px;
+      }
+      
+      /* 公告欄樣式 */
+      .bulletin-entry {
+          background-color: #f9f9f9;
+          border-left: 5px solid #3e9956;
+          padding: 15px;
+          margin-bottom: 15px;
+          border-radius: 5px;
+          transition: all 0.3s ease;
+      }
 
-        .bulletin-entry:hover {
-            transform: translateX(10px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+      .bulletin-entry:hover {
+          transform: translateX(10px);
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
 
-        .loading {
-            text-align: center;
-            color: #3e9956;
-            padding: 20px;
-            font-size: 16px;
-        }
+      .loading {
+          text-align: center;
+          color: #3e9956;
+          padding: 20px;
+          font-size: 16px;
+      }
 
-        .entry-title {
-            font-weight: bold;
-            color: #2c7a3f;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+      .entry-title {
+          font-weight: bold;
+          color: #2c7a3f;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+      }
 
-        .entry-content {
-            color: #333;
-            margin-bottom: 10px;
-        }
+      .entry-content {
+          color: #333;
+          margin-bottom: 10px;
+      }
 
-        .entry-date {
-            color: #888;
-            text-align: right;
-            font-size: 0.8em;
-        }
-        
-        /* 更多按鈕 */
-        .view-more-btn {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background-color: #f5f5f5;
-            color: #1a73e8;
-            border-radius: 5px;
-            margin-top: 10px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
-        
-        .view-more-btn:hover {
-            background-color: #e0e0e0;
-        }
-        
-        /* 工期倒數計時器 */
-        .countdown-timer {
-            text-align: center;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .countdown-timer h3 {
-            margin-bottom: 10px;
-            color: #1a73e8;
-        }
-        
-        .countdown-timer .timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .countdown-timer .time-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .countdown-timer .time-value {
-            font-size: 24px;
-            font-weight: bold;
-            background-color: #1a73e8;
-            color: white;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-        }
-        
-        .countdown-timer .time-label {
-            margin-top: 5px;
-            font-size: 12px;
-            color: #666;
-        }
-        
-        /* 部門按鈕容器樣式 */
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+      .entry-date {
+          color: #888;
+          text-align: right;
+          font-size: 0.8em;
+      }
+      
+      /* 更多按鈕 */
+      .view-more-btn {
+          display: block;
+          text-align: center;
+          padding: 10px;
+          background-color: #f5f5f5;
+          color: #1a73e8;
+          border-radius: 5px;
+          margin-top: 10px;
+          text-decoration: none;
+          font-weight: 500;
+          transition: background-color 0.3s;
+      }
+      
+      .view-more-btn:hover {
+          background-color: #e0e0e0;
+      }
+      
+      /* 工期倒數計時器 */
+      .countdown-timer {
+          text-align: center;
+          padding: 15px;
+          background-color: #f8f9fa;
+          border-radius: 8px;
+          margin-bottom: 15px;
+          border: 1px solid #e0e0e0;
+      }
+      
+      .countdown-timer h3 {
+          margin-bottom: 10px;
+          color: #1a73e8;
+      }
+      
+      .countdown-timer .timer {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+      }
+      
+      .countdown-timer .time-block {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+      
+      .countdown-timer .time-value {
+          font-size: 24px;
+          font-weight: bold;
+          background-color: #1a73e8;
+          color: white;
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+      }
+      
+      .countdown-timer .time-label {
+          margin-top: 5px;
+          font-size: 12px;
+          color: #666;
+      }
+      
+      /* 部門按鈕容器樣式 */
+      .btn-container {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+      }
 
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+      .btn-group {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+      }
 
-        .btn {
-            display: block;
-            background-color: #1a73e8;
-            color: white;
-            padding: 12px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            text-align: center;
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
+      .btn {
+          display: block;
+          background-color: #1a73e8;
+          color: white;
+          padding: 12px 15px;
+          border-radius: 8px;
+          text-decoration: none;
+          text-align: center;
+          font-weight: 500;
+          transition: background-color 0.3s;
+      }
 
-        .btn:hover {
-            background-color: #1557b0;
-        }
-        
-        /* 錯誤訊息樣式 */
-        .error-message {
-            background-color: #ffebee;
-            color: #c62828;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-            margin: 10px 0;
-        }
-        
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background-color: white;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #666;
-            text-decoration: none;
-            font-size: 12px;
-        }
-        
-        .nav-item.active {
-            color: #1a73e8;
-        }
-        
-        .nav-item i {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-        
-        /* 針對小螢幕裝置的響應式調整 */
-        @media (max-width: 768px) {
-            .btn-container {
-                flex-direction: column;
-            }
-            
-            .btn-group {
-                width: 100%;
-            }
-            
-            .countdown-timer .timer {
-                flex-wrap: wrap;
-            }
-            
-            .countdown-timer .time-value {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-            
-            .header-logo {
-                height: 30px;
-            }
-            
-            .header h1 {
-                font-size: 18px;
-            }
-        }
-    </style>
+      .btn:hover {
+          background-color: #1557b0;
+      }
+      
+      /* 錯誤訊息樣式 */
+      .error-message {
+          background-color: #ffebee;
+          color: #c62828;
+          padding: 15px;
+          border-radius: 5px;
+          text-align: center;
+          margin: 10px 0;
+      }
+      
+      .debug-info {
+          background-color: #e3f2fd;
+          color: #1565c0;
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 12px;
+          margin: 10px 0;
+          font-family: monospace;
+      }
+      
+      .retry-btn {
+          background-color: #4caf50;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          margin: 10px 5px;
+      }
+      
+      .retry-btn:hover {
+          background-color: #45a049;
+      }
+      
+      .bottom-nav {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 60px;
+          background-color: white;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+          z-index: 1000;
+      }
+      
+      .nav-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: #666;
+          text-decoration: none;
+          font-size: 12px;
+      }
+      
+      .nav-item.active {
+          color: #1a73e8;
+      }
+      
+      .nav-item i {
+          font-size: 24px;
+          margin-bottom: 4px;
+      }
+      
+      /* 針對小螢幕裝置的響應式調整 */
+      @media (max-width: 768px) {
+          .btn-container {
+              flex-direction: column;
+          }
+          
+          .btn-group {
+              width: 100%;
+          }
+          
+          .countdown-timer .timer {
+              flex-wrap: wrap;
+          }
+          
+          .countdown-timer .time-value {
+              width: 40px;
+              height: 40px;
+              font-size: 18px;
+          }
+          
+          .header-logo {
+              height: 30px;
+          }
+          
+          .header h1 {
+              font-size: 18px;
+          }
+      }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <img src="https://i.postimg.cc/ZKWfsQD9/Logo-02-0.png" alt="Logo" class="header-logo">
-            <h1>亞灣工地</h1>
-        </div>
-    </header>
-    
-    <div class="container">
-        <!-- 工期倒數計時器 -->
-        <section id="countdown">
-            <h2><i class="material-icons">timer</i> 時間快到了</h2>
-            <div class="card">
-                <div class="countdown-timer">
-                    <h3>工程預計完工時間</h3>
-                    <div class="timer">
-                        <div class="time-block">
-                            <div id="days" class="time-value">00</div>
-                            <div class="time-label">天</div>
-                        </div>
-                        <div class="time-block">
-                            <div id="hours" class="time-value">00</div>
-                            <div class="time-label">時</div>
-                        </div>
-                        <div class="time-block">
-                            <div id="minutes" class="time-value">00</div>
-                            <div class="time-label">分</div>
-                        </div>
-                        <div class="time-block">
-                            <div id="seconds" class="time-value">00</div>
-                            <div class="time-label">秒</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 公告欄直接顯示在首頁 -->
-        <section id="bulletin">
-            <h2><i class="material-icons">campaign</i> 最新公告</h2>
-            <div class="card">
-                <div id="bulletin-entries" class="loading">
-                    載入公告中...
-                </div>
-                <a href="#" id="view-more-btn" class="view-more-btn" style="display:none;">
-                    查看更多公告
-                </a>
-            </div>
-        </section>
-        
-        <section id="departments">
-            <h2><i class="material-icons">business</i> 各組連結</h2>
-            <div class="card">
-                <div class="btn-container">
-                    <div class="btn-group">
-                        <p style="color: #1a73e8; font-size: 18px; margin-bottom: 10px;">施工組</p>
-                        <a href="https://docs.google.com/spreadsheets/d/1_jZbDPtyy7cO3cA0VwdrQGD6sbkIz0tzjLnnktIbVFw/edit?gid=0#gid=0" class="btn">機關日報</a>
-                        <a href="https://docs.google.com/spreadsheets/d/12m5vT10qJaHwk5ekftoGvM0w0IQyCuHn8rOTXyHafCQ/edit?usp=sharing" class="btn">查驗白板專區</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1BxXg5jEgVMVnT5uBZGIEUoEs7GHX90Aent1j9mCZWD8/edit?gid=0#gid=0" class="btn">施工自主查驗(結構)</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1lJvblrFYJObHKHwMvFmxRcKqy3Atdogr4g59ZpLNOQ4/edit?gid=1474171117#gid=1474171117" class="btn">施工自主查驗(裝修)</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1JaZEKyh_M6bWk_I3p-jWH1cL6htITDyfzwwzSb3mbcc/edit?gid=442371140#gid=442371140" class="btn">混凝土澆置統計</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1LtNOr7zsmdIlIMaf4jUn77W6LCdlxh3rcCXPcvXafkw/edit?gid=0#gid=0" class="btn">缺失改善紀錄</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1QP7HbrNo5MCdGsvQsY1hUy2ufkkg3hwsgfDL917FkBo/edit?gid=0#gid=0" class="btn">施工進度取線圖</a>
-                        <a href="https://w-09.github.io/form/Untitled-1.html" class="btn">每日進場人數回報</a>
-                        <a href="https://docs.google.com/spreadsheets/d/14bCNRHbODeUyE_SoTtciLrtRKutp8AFP7W0S_KJQPPg/edit?gid=250419685#gid=250419685" class="btn">施工圖圖控</a>
-                    </div>
-                    <div class="btn-group">
-                        <p style="color: #1a73e8; font-size: 18px; margin-bottom: 10px;">品管組</p>
-                        <a href="https://docs.google.com/spreadsheets/d/13dLwyMfSB_O8V2oHDqnUeV__RnNFalBGPllYWnyXaPw/edit?gid=0#gid=0" class="btn">混凝土澆置時間紀錄(1)</a>
-                        <a href="https://docs.google.com/spreadsheets/d/120XZPrVJ45FkId1PKj4Weov0lcDOhBsThOSnPlg3A3A/edit?usp=sharing" class="btn">混凝土澆置時間紀錄(2)</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1ymHlbXo8yzJ8XCd9djMdBSwjwIqwsGdUfdDd4OE8nio/edit?gid=281744822#gid=281744822" class="btn">收/發文紀錄</a>
-                        <a href="https://docs.google.com/spreadsheets/d/13Zf7l9bKjapzaQGxyRAc-qeVmdWNmFhGxPd2ziPnEJw/edit?gid=0#gid=0" class="btn">工程相關人員督導紀錄</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1i1TBepz7SEm0KRRCbRYntfTcCA7ZKUgRRwDaWJ1nMqU/edit?gid=1342178985#gid=1342178985" class="btn">矯正預防/永青自主缺失統計</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1MK7jePCQ2Yjm26yTVvdctfMCOfXwiGLiSxy-LPc3ERc/edit?gid=1616629558#gid=1616629558" class="btn">材料設備統計表/申請單</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1c5S8atUiWVK0jWNyt4P2bLRuisoKJFOadOuKEyCs9C0/edit?gid=0#gid=0" class="btn">各期估驗計價</a>
-                        <a href="https://docs.google.com/spreadsheets/d/15upHRzj2BciKvpJaTAXYmYF9JkKQIyGE5iJFfRYFCm8/edit?gid=1766218997#gid=1766218997" class="btn">管制總表</a>
-                    </div>
-                    <div class="btn-group">
-                        <p style="color: #1a73e8; font-size: 18px; margin-bottom: 10px;">行政組</p>
-                        <a href="https://docs.google.com/spreadsheets/d/1DZa-5tN-KdqLg9TXe-YYKJ-qjJl5MB5bF_MU0RCj_iY/edit?gid=0#gid=0" class="btn">亞灣通訊錄</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1WnxDDYCBhcXql9HOzusgs87ief0tVv4TbFLI_OBetGo/edit?gid=0#gid=0" class="btn">公告管理表</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1vSwKgZISco6nhpjVpawJizrPLsLTBsN4psA4dgGtWc4/edit?gid=0#gid=0" class="btn">每日進場人員查詢</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    
-    <nav class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <i class="material-icons">home</i>
-            <span>首頁</span>
-        </a>
-        <a href="#bulletin" class="nav-item">
-            <i class="material-icons">campaign</i>
-            <span>公告</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="material-icons">description</i>
-            <span>文件(尚未開發)</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="material-icons">person</i>
-            <span>個人(尚未開發)</span>
-        </a>
-    </nav>
-    
-    <script>
-        // Google試算表的公開發佈CSV網址
-        const SPREADSHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC4HgLq2IE7lKm4lixBvo0X4f6Erl6JdW6prqkrr83AypmGiwfnUCyCFXcoN_KfNbGCvUu5u6vHXp5/pub?output=csv';
-        
-        // 工期倒數計時器
-        function updateCountdown() {
-            // 設定目標日期 (2026年12月25日)
-            const targetDate = new Date('2026-12-25T00:00:00');
-            const currentDate = new Date();
-            
-            // 計算剩餘時間
-            const timeLeft = targetDate - currentDate;
-            
-            // 如果已經過了目標日期
-            if (timeLeft <= 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                return;
-            }
-            
-            // 計算天、時、分、秒
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            
-            // 更新顯示
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-        
-        // 每秒更新一次倒數計時
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-        
-        // 頁面載入時直接獲取公告
-        document.addEventListener('DOMContentLoaded', fetchBulletinEntries);
-        
-        // 從試算表載入公告資料
-        async function fetchBulletinEntries() {
-            try {
-                console.log("開始載入公告資料...");
-                // 使用 fetch API 獲取 CSV 數據
-                const response = await fetch(SPREADSHEET_CSV_URL);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP 錯誤! 狀態: ${response.status}`);
-                }
-                
-                const csvText = await response.text();
-                console.log("成功獲取CSV數據");
-                
-                // 使用 PapaParse 解析 CSV
-                Papa.parse(csvText, {
-                    complete: function(results) {
-                        const entriesContainer = document.getElementById('bulletin-entries');
-                        entriesContainer.innerHTML = ''; // 清空載入提示
-                        
-                        // 跳過標題列，從第二列開始
-                        const entries = results.data.slice(1).filter(entry => entry.length > 0 && entry[0] && entry[0].trim() !== '');
-                        
-                        console.log("過濾後的有效公告數:", entries.length);
-                        
-                        if (entries.length === 0) {
-                            entriesContainer.innerHTML = `
-                                <div style="text-align:center; color:#888;">
-                                    目前尚無公告
-                                </div>
-                            `;
-                            return;
-                        }
-                        
-                        // 只顯示最新的3則公告
-                        const displayEntries = entries.slice(0, 3);
-                        
-                        // 顯示公告
-                        displayEntries.forEach(entry => {
-                            const entryDiv = document.createElement('div');
-                            entryDiv.className = 'bulletin-entry';
-                            
-                            const icon = entry[3] || '📢';
-                            const title = entry[0] || '公告';
-                            const content = entry[1] || '暫無詳細內容';
-                            const date = entry[2] || '';
-                            
-                            entryDiv.innerHTML = `
-                                <div class="entry-title">${icon} ${title}</div>
-                                <div class="entry-content">${content}</div>
-                                <div class="entry-date">${date}</div>
-                            `;
-                            
-                            entriesContainer.appendChild(entryDiv);
-                        });
-                        
-                        // 如果有超過3則公告，顯示「查看更多」按鈕
-                        if (entries.length > 3) {
-                            const viewMoreBtn = document.getElementById('view-more-btn');
-                            viewMoreBtn.style.display = 'block';
-                            
-                            // 點擊「查看更多」按鈕時顯示所有公告
-                            viewMoreBtn.addEventListener('click', function(e) {
-                                e.preventDefault();
-                                
-                                // 清空容器
-                                entriesContainer.innerHTML = '';
-                                
-                                // 顯示所有公告
-                                entries.forEach(entry => {
-                                    const entryDiv = document.createElement('div');
-                                    entryDiv.className = 'bulletin-entry';
-                                    
-                                    const icon = entry[3] || '📢';
-                                    const title = entry[0] || '公告';
-                                    const content = entry[1] || '暫無詳細內容';
-                                    const date = entry[2] || '';
-                                    
-                                    entryDiv.innerHTML = `
-                                        <div class="entry-title">${icon} ${title}</div>
-                                        <div class="entry-content">${content}</div>
-                                        <div class="entry-date">${date}</div>
-                                    `;
-                                    
-                                    entriesContainer.appendChild(entryDiv);
-                                });
-                                
-                                // 隱藏「查看更多」按鈕
-                                viewMoreBtn.style.display = 'none';
-                                
-                                // 添加「顯示較少」按鈕
-                                const showLessBtn = document.createElement('a');
-                                showLessBtn.href = '#';
-                                showLessBtn.className = 'view-more-btn';
-                                showLessBtn.textContent = '顯示較少';
-                                showLessBtn.addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    fetchBulletinEntries(); // 重新載入，只顯示前3則
-                                });
-                                
-                                entriesContainer.parentNode.appendChild(showLessBtn);
-                            });
-                        }
-                    },
-                    error: function(error) {
-                        console.error('CSV解析錯誤:', error);
-                        const entriesContainer = document.getElementById('bulletin-entries');
-                        entriesContainer.innerHTML = `
-                            <div class="error-message">
-                                <h3>🚨 CSV解析錯誤</h3>
-                                <p>${error.message}</p>
-                                <p>請稍後再試或聯絡系統管理員</p>
-                            </div>
-                        `;
-                    }
-                });
-            } catch (error) {
-                console.error('公告載入失敗:', error);
-                const entriesContainer = document.getElementById('bulletin-entries');
-                entriesContainer.innerHTML = `
-                    <div class="error-message">
-                        <h3>🚨 載入錯誤</h3>
-                        <p>${error.message}</p>
-                        <p>請檢查網路連接或聯絡系統管理員</p>
-                    </div>
-                `;
-            }
-        }
-    </script>
+  <header class="header">
+      <div class="header-content">
+          <img src="https://i.postimg.cc/ZKWfsQD9/Logo-02-0.png" alt="Logo" class="header-logo">
+          <h1>亞灣工地</h1>
+      </div>
+  </header>
+  
+  <div class="container">
+      <!-- 工期倒數計時器 -->
+      <section id="countdown">
+          <h2><i class="material-icons">timer</i> 工期倒數</h2>
+          <div class="card">
+              <div class="countdown-timer">
+                  <h3>工程預計完工時間</h3>
+                  <div class="timer">
+                      <div class="time-block">
+                          <div id="days" class="time-value">00</div>
+                          <div class="time-label">天</div>
+                      </div>
+                      <div class="time-block">
+                          <div id="hours" class="time-value">00</div>
+                          <div class="time-label">時</div>
+                      </div>
+                      <div class="time-block">
+                          <div id="minutes" class="time-value">00</div>
+                          <div class="time-label">分</div>
+                      </div>
+                      <div class="time-block">
+                          <div id="seconds" class="time-value">00</div>
+                          <div class="time-label">秒</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <!-- 公告欄 -->
+      <section id="bulletin">
+          <h2><i class="material-icons">campaign</i> 最新公告</h2>
+          <div class="card">
+              <div id="bulletin-entries" class="loading">
+                  載入公告中...
+              </div>
+              <div id="debug-info" class="debug-info" style="display:none;"></div>
+              <button id="retry-btn" class="retry-btn" style="display:none;" onclick="fetchBulletinEntries()">重新載入</button>
+              <button id="demo-btn" class="retry-btn" onclick="loadDemoData()">載入示範資料</button>
+              <a href="#" id="view-more-btn" class="view-more-btn" style="display:none;">
+                  查看更多公告
+              </a>
+          </div>
+      </section>
+      
+      <section id="departments">
+          <h2><i class="material-icons">business</i> 各組連結</h2>
+          <div class="card">
+              <div class="btn-container">
+                  <div class="btn-group">
+                      <p style="color: #1a73e8; font-size: 18px; margin-bottom: 10px;">施工組</p>
+                      <a href="https://docs.google.com/spreadsheets/d/1_jZbDPtyy7cO3cA0VwdrQGD6sbkIz0tzjLnnktIbVFw/edit?gid=0#gid=0" class="btn">機關日報</a>
+                      <a href="https://docs.google.com/spreadsheets/d/12m5vT10qJaHwk5ekftoGvM0w0IQyCuHn8rOTXyHafCQ/edit?usp=sharing" class="btn">查驗白板專區</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1BxXg5jEgVMVnT5uBZGIEUoEs7GHX90Aent1j9mCZWD8/edit?gid=0#gid=0" class="btn">施工自主查驗(結構)</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1lJvblrFYJObHKHwMvFmxRcKqy3Atdogr4g59ZpLNOQ4/edit?gid=1474171117#gid=1474171117" class="btn">施工自主查驗(裝修)</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1JaZEKyh_M6bWk_I3p-jWH1cL6htITDyfzwwzSb3mbcc/edit?gid=442371140#gid=442371140" class="btn">混凝土澆置統計</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1LtNOr7zsmdIlIMaf4jUn77W6LCdlxh3rcCXPcvXafkw/edit?gid=0#gid=0" class="btn">缺失改善紀錄</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1QP7HbrNo5MCdGsvQsY1hUy2ufkkg3hwsgfDL917FkBo/edit?gid=0#gid=0" class="btn">施工進度取線圖</a>
+                      <a href="https://w-09.github.io/form/Untitled-1.html" class="btn">每日進場人數回報</a>
+                      <a href="https://docs.google.com/spreadsheets/d/14bCNRHbODeUyE_SoTtciLrtRKutp8AFP7W0S_KJQPPg/edit?gid=250419685#gid=250419685" class="btn">施工圖圖控</a>
+                  </div>
+                  <div class="btn-group">
+                      <p style="color: #1a73e8; font-size: 18px; margin-bottom: 10px;">品管組</p>
+                      <a href="https://docs.google.com/spreadsheets/d/13dLwyMfSB_O8V2oHDqnUeV__RnNFalBGPllYWnyXaPw/edit?gid=0#gid=0" class="btn">混凝土澆置時間紀錄(1)</a>
+                      <a href="https://docs.google.com/spreadsheets/d/120XZPrVJ45FkId1PKj4Weov0lcDOhBsThOSnPlg3A3A/edit?usp=sharing" class="btn">混凝土澆置時間紀錄(2)</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1ymHlbXo8yzJ8XCd9djMdBSwjwIqwsGdUfdDd4OE8nio/edit?gid=281744822#gid=281744822" class="btn">收/發文紀錄</a>
+                      <a href="https://docs.google.com/spreadsheets/d/13Zf7l9bKjapzaQGxyRAc-qeVmdWNmFhGxPd2ziPnEJw/edit?gid=0#gid=0" class="btn">工程相關人員督導紀錄</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1i1TBepz7SEm0KRRCbRYntfTcCA7ZKUgRRwDaWJ1nMqU/edit?gid=1342178985#gid=1342178985" class="btn">矯正預防/永青自主缺失統計</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1MK7jePCQ2Yjm26yTVvdctfMCOfXwiGLiSxy-LPc3ERc/edit?gid=1616629558#gid=1616629558" class="btn">材料設備統計表/申請單</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1c5S8atUiWVK0jWNyt4P2bLRuisoKJFOadOuKEyCs9C0/edit?gid=0#gid=0" class="btn">各期估驗計價</a>
+                      <a href="https://docs.google.com/spreadsheets/d/15upHRzj2BciKvpJaTAXYmYF9JkKQIyGE5iJFfRYFCm8/edit?gid=1766218997#gid=1766218997" class="btn">管制總表</a>
+                  </div>
+                  <div class="btn-group">
+                      <p style="color: #1a73e8; font-size: 18px; margin-bottom: 10px;">行政組</p>
+                      <a href="https://docs.google.com/spreadsheets/d/1DZa-5tN-KdqLg9TXe-YYKJ-qjJl5MB5bF_MU0RCj_iY/edit?gid=0#gid=0" class="btn">亞灣通訊錄</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1WnxDDYCBhcXql9HOzusgs87ief0tVv4TbFLI_OBetGo/edit?gid=0#gid=0" class="btn">公告管理表</a>
+                      <a href="https://docs.google.com/spreadsheets/d/1vSwKgZISco6nhpjVpawJizrPLsLTBsN4psA4dgGtWc4/edit?gid=0#gid=0" class="btn">每日進場人員查詢</a>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
+  
+  <nav class="bottom-nav">
+      <a href="#" class="nav-item active">
+          <i class="material-icons">home</i>
+          <span>首頁</span>
+      </a>
+      <a href="#bulletin" class="nav-item">
+          <i class="material-icons">campaign</i>
+          <span>公告</span>
+      </a>
+      <a href="#" class="nav-item">
+          <i class="material-icons">description</i>
+          <span>文件(尚未開發)</span>
+      </a>
+      <a href="#" class="nav-item">
+          <i class="material-icons">person</i>
+          <span>個人(尚未開發)</span>
+      </a>
+  </nav>
+  
+  <script>
+      // 多個可能的 CSV URL
+      const CSV_URLS = [
+          'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC4HgLq2IE7lKm4lixBvo0X4f6Erl6JdW6prqkrr83AypmGiwfnUCyCFXcoN_KfNbGCvUu5u6vHXp5/pub?output=csv',
+          'https://docs.google.com/spreadsheets/d/1WnxDDYCBhcXql9HOzusgs87ief0tVv4TbFLI_OBetGo/export?format=csv&gid=0'
+      ];
+      
+      let currentUrlIndex = 0;
+      
+      // 工期倒數計時器
+      function updateCountdown() {
+          const targetDate = new Date('2026-12-25T00:00:00');
+          const currentDate = new Date();
+          const timeLeft = targetDate - currentDate;
+          
+          if (timeLeft <= 0) {
+              document.getElementById('days').textContent = '00';
+              document.getElementById('hours').textContent = '00';
+              document.getElementById('minutes').textContent = '00';
+              document.getElementById('seconds').textContent = '00';
+              return;
+          }
+          
+          const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+          
+          document.getElementById('days').textContent = days.toString().padStart(2, '0');
+          document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+          document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+          document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      }
+      
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      
+      // 載入示範資料
+      function loadDemoData() {
+          const entriesContainer = document.getElementById('bulletin-entries');
+          const demoData = [
+              {
+                  title: "📢 系統測試公告",
+                  content: "這是示範公告資料，用於測試系統功能是否正常運作。",
+                  date: "2025-08-26"
+              },
+              {
+                  title: "🚧 工程進度通知",
+                  content: "本週工程進度順利，預計下週開始進行下一階段施工。",
+                  date: "2025-08-25"
+              },
+              {
+                  title: "⚠️ 安全提醒",
+                  content: "請所有工作人員務必配戴安全帽和反光背心，注意工地安全。",
+                  date: "2025-08-24"
+              }
+          ];
+          
+          entriesContainer.innerHTML = '';
+          
+          demoData.forEach(entry => {
+              const entryDiv = document.createElement('div');
+              entryDiv.className = 'bulletin-entry';
+              entryDiv.innerHTML = `
+                  <div class="entry-title">${entry.title}</div>
+                  <div class="entry-content">${entry.content}</div>
+                  <div class="entry-date">${entry.date}</div>
+              `;
+              entriesContainer.appendChild(entryDiv);
+          });
+          
+          document.getElementById('debug-info').style.display = 'none';
+          document.getElementById('retry-btn').style.display = 'none';
+      }
+      
+      // 從試算表載入公告資料
+      async function fetchBulletinEntries() {
+          const entriesContainer = document.getElementById('bulletin-entries');
+          const debugInfo = document.getElementById('debug-info');
+          const retryBtn = document.getElementById('retry-btn');
+          
+          entriesContainer.innerHTML = '<div class="loading">載入公告中...</div>';
+          debugInfo.style.display = 'none';
+          retryBtn.style.display = 'none';
+          
+          // 嘗試所有可能的 URL
+          for (let i = 0; i < CSV_URLS.length; i++) {
+              try {
+                  console.log(`嘗試載入 URL ${i + 1}:`, CSV_URLS[i]);
+                  
+                  const response = await fetch(CSV_URLS[i], {
+                      method: 'GET',
+                      mode: 'cors',
+                      headers: {
+                          'Accept': 'text/csv,text/plain,*/*'
+                      }
+                  });
+                  
+                  if (!response.ok) {
+                      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                  }
+                  
+                  const csvText = await response.text();
+                  console.log('成功獲取CSV數據，長度:', csvText.length);
+                  
+                  if (csvText.length < 10) {
+                      throw new Error('CSV 資料太短，可能無效');
+                  }
+                  
+                  // 解析 CSV
+                  Papa.parse(csvText, {
+                      complete: function(results) {
+                          console.log('CSV 解析結果:', results);
+                          
+                          if (results.errors && results.errors.length > 0) {
+                              console.warn('CSV 解析警告:', results.errors);
+                          }
+                          
+                          const entries = results.data.slice(1).filter(entry => 
+                              entry.length > 0 && entry[0] && entry[0].trim() !== ''
+                          );
+                          
+                          if (entries.length === 0) {
+                              throw new Error('沒有找到有效的公告資料');
+                          }
+                          
+                          displayEntries(entries);
+                      },
+                      error: function(error) {
+                          throw new Error(`CSV 解析錯誤: ${error.message}`);
+                      }
+                  });
+                  
+                  return; // 成功載入，退出函數
+                  
+              } catch (error) {
+                  console.error(`URL ${i + 1} 載入失敗:`, error);
+                  
+                  if (i === CSV_URLS.length - 1) {
+                      // 所有 URL 都失敗了
+                      entriesContainer.innerHTML = `
+                          <div class="error-message">
+                              <h3>🚨 公告載入失敗</h3>
+                              <p>無法從 Google 試算表載入公告資料</p>
+                              <p>錯誤: ${error.message}</p>
+                              <p>請檢查網路連接或聯絡系統管理員</p>
+                          </div>
+                      `;
+                      
+                      debugInfo.innerHTML = `
+                          <strong>除錯資訊:</strong><br>
+                          • 嘗試的 URL 數量: ${CSV_URLS.length}<br>
+                          • 最後錯誤: ${error.message}<br>
+                          • 時間: ${new Date().toLocaleString()}<br>
+                          • 瀏覽器: ${navigator.userAgent.split(' ').pop()}
+                      `;
+                      debugInfo.style.display = 'block';
+                      retryBtn.style.display = 'inline-block';
+                  }
+              }
+          }
+      }
+      
+      // 顯示公告資料
+      function displayEntries(entries) {
+          const entriesContainer = document.getElementById('bulletin-entries');
+          entriesContainer.innerHTML = '';
+          
+          const displayEntries = entries.slice(0, 3);
+          
+          displayEntries.forEach(entry => {
+              const entryDiv = document.createElement('div');
+              entryDiv.className = 'bulletin-entry';
+              
+              const icon = entry[3] || '📢';
+              const title = entry[0] || '公告';
+              const content = entry[1] || '暫無詳細內容';
+              const date = entry[2] || '';
+              
+              entryDiv.innerHTML = `
+                  <div class="entry-title">${icon} ${title}</div>
+                  <div class="entry-content">${content}</div>
+                  <div class="entry-date">${date}</div>
+              `;
+              
+              entriesContainer.appendChild(entryDiv);
+          });
+          
+          if (entries.length > 3) {
+              document.getElementById('view-more-btn').style.display = 'block';
+          }
+      }
+      
+      // 頁面載入時嘗試獲取公告
+      document.addEventListener('DOMContentLoaded', function() {
+          // 延遲 1 秒後開始載入，避免頁面載入衝突
+          setTimeout(fetchBulletinEntries, 1000);
+      });
+  </script>
 </body>
 </html>
