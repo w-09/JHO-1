@@ -460,7 +460,26 @@
       updateCountdown();
       setInterval(updateCountdown, 1000);
       
-    
+      // 載入示範資料
+      function loadDemoData() {
+          const entriesContainer = document.getElementById('bulletin-entries');
+          const demoData = [
+              {
+                  title: "📢 系統測試公告",
+                  content: "這是示範公告資料，用於測試系統功能是否正常運作。",
+                  date: "2025-08-26"
+              },
+              {
+                  title: "🚧 工程進度通知",
+                  content: "本週工程進度順利，預計下週開始進行下一階段施工。",
+                  date: "2025-08-25"
+              },
+              {
+                  title: "⚠️ 安全提醒",
+                  content: "請所有工作人員務必配戴安全帽和反光背心，注意工地安全。",
+                  date: "2025-08-24"
+              }
+          ];
           
           entriesContainer.innerHTML = '';
           
@@ -605,4 +624,3 @@
   </script>
 </body>
 </html>
-
