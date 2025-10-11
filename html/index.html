@@ -12,16 +12,12 @@
           margin: 0;
           padding: 0;
           box-sizing: border-box;
-          font-family: 'Noto Sans TC', sans-serif;
-      }
-      
+          font-family: 'Noto Sans TC', sans-serif; }
       body {
           background-color: #f5f5f5;
           color: #333;
           padding-top: 60px;
-          padding-bottom: 70px;
-      }
-      
+          padding-bottom: 70px;}
       .header {
           position: fixed;
           top: 0;
@@ -34,17 +30,13 @@
           align-items: center;
           justify-content: center;
           z-index: 1000;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-      
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
       .header-content {
           display: flex;
           align-items: center;
           justify-content: center;
           width: 100%;
-          max-width: 800px;
-      }
-      
+          max-width: 800px; }
       .header-logo {
           height: 40px;
           margin-right: 10px;
@@ -594,7 +586,7 @@
           const entriesContainer = document.getElementById('bulletin-entries');
           entriesContainer.innerHTML = '';
           
-          const displayEntries = entries.slice(0, 3);
+          const displayEntries = entries.slice(0, 4);//公告的數量
           
           displayEntries.forEach(entry => {
               const entryDiv = document.createElement('div');
@@ -613,10 +605,6 @@
               
               entriesContainer.appendChild(entryDiv);
           });
-          
-          if (entries.length > 3) {
-              document.getElementById('view-more-btn').style.display = 'block';
-          }
       }
       
       // 頁面載入時嘗試獲取公告
@@ -627,6 +615,7 @@
   </script>
 </body>
 </html>
+
 
 
 
