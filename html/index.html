@@ -196,7 +196,7 @@
     ];
 
     function updateCountdown() {
-      const targetDate = new Date('2026-12-25T00:00:00');
+      const targetDate = new Date('2027-2-2T00:00:00');
       const timeLeft = targetDate - new Date();
       if (timeLeft <= 0) {
         ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent = '00');
